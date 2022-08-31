@@ -1,0 +1,43 @@
+<template>
+  <div class="todo-header">
+    <input type="text" placeholder="请输入你的任务名称，按回车键确认" @keyup.enter="add"/>
+  </div>
+</template>
+
+<script>
+import {nanoid} from "nanoid"
+export default {
+  name: "Header",
+  data() {
+    return {
+     
+    };
+  },
+   methods: {
+        add(e){ //获取输入框里面的值,可以用v-model获取,此处用e获取
+           if(!e.target.value.trim() ) return //判断是否输入或者输入了空格
+           const todoObj = {id:nanoid(),name:e.target.value,done:false}
+           this.$emit('addTodoObj',todoObj)
+           e.target.value = ""
+        }
+      },
+};
+</script>
+
+<style scoped>
+.todo-header input {
+  width: 560px;
+  height: 28px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 7px;
+}
+
+.todo-header input:focus {
+  outline: none;
+  border-color: rgba(82, 168, 236, 0.8);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(82, 168, 236, 0.6);
+}
+</style>
